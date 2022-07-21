@@ -16,6 +16,7 @@ class AppTheme {
           cursorColor: Colors.grey.shade900,
           selectionColor: Colors.blueAccent.shade400,
         ),
+        cardTheme: _buildCardTheme,
       );
 
   InputDecorationTheme get _buildInputDecorationTheme {
@@ -49,6 +50,18 @@ class AppTheme {
         borderSide: BorderSide(
           color: Colors.grey.shade300,
         ),
+      ),
+    );
+  }
+
+  CardTheme get _buildCardTheme {
+    return CardTheme(
+      elevation: 2,
+      clipBehavior: Clip.antiAlias,
+      shadowColor: Colors.black.withOpacity(0.5),
+      color: Colors.grey.shade50,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
       ),
     );
   }
