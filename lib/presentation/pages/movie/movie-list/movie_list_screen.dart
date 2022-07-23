@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_challenge_project/presentation/movie/movie-detail/movie_detail_screen.dart';
+import 'package:movie_challenge_project/presentation/pages/movie/movie-detail/movie_detail_screen.dart';
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({Key? key}) : super(key: key);

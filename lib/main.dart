@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movie_challenge_project/injection.dart';
 import 'package:movie_challenge_project/presentation/core/theme/app_theme.dart';
-import 'package:movie_challenge_project/presentation/movie/movie-list/movie_list_screen.dart';
+import 'package:movie_challenge_project/presentation/pages/movie/movie-list/movie_list_screen.dart';
 
 Future<void> main() async {
   await configureDependencies();
