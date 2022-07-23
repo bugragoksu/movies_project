@@ -25,6 +25,7 @@ class MovieDTO {
   });
 
   final bool adult;
+  @JsonKey(name: 'backdrop_path')
   final String? backdropPath;
   final List<GenreDTO> genres;
   final int id;
