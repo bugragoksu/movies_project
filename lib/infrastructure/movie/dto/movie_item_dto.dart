@@ -21,5 +21,6 @@ class MovieItemDTO {
         avarage: dto.avarage,
       );
 
+  factory MovieItemDTO.fromJson(Map<String, dynamic> json) => _$MovieItemDTOFromJson(json);
   static const fromJsonFactory = _$MovieItemDTOFromJson;
 }
