@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:movie_challenge_project/domain/core/failures/failure.dart';
+import 'package:movie_challenge_project/domain/movie/entity/genre.dart';
 import 'package:movie_challenge_project/domain/movie/entity/movie.dart';
 import 'package:movie_challenge_project/domain/core/utils/pagination/pagination_params.dart';
 import 'package:movie_challenge_project/domain/core/utils/pagination/paginated_response.dart';
@@ -21,6 +22,16 @@ class MovieRepositoryImpl implements MovieRepository {
       final result = await _movieDataSource.searchMovies(query: query, paginationParams: paginationParams);
       final paginatedResponse = result.toPaginatedResponse<Movie>(MovieDTO.toMovie);
       return DataResult.success(paginatedResponse);
+    } on Exception catch (e) {
+      return DataResult.failure(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<DataResult<List<Genre>>> getGenres({required List<int> genreIds}) async {
+    try {
+      final result = await _movieDataSource.getGenres(genreIds: genreIds);
+      return DataResult.success(result.map((e) => e.toGenre).toList());
     } on Exception catch (e) {
       return DataResult.failure(Failure.fromException(e));
     }
