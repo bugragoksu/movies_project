@@ -40,6 +40,7 @@ class MovieDTO {
   static Movie toMovie(MovieDTO dto) => Movie(
         backdropPath: dto.backdropPath ?? '',
         id: dto.id,
+        genres: dto.genreIds,
         overview: dto.overview,
         title: dto.title,
         voteAverage: dto.voteAverage,

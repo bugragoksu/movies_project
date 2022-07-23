@@ -28,9 +28,9 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<DataResult<List<Genre>>> getGenres({required List<int> genreIds}) async {
+  Future<DataResult<List<Genre>>> getGenres() async {
     try {
-      final result = await _movieDataSource.getGenres(genreIds: genreIds);
+      final result = await _movieDataSource.getGenres();
       return DataResult.success(result.map((e) => e.toGenre).toList());
     } on Exception catch (e) {
       return DataResult.failure(Failure.fromException(e));

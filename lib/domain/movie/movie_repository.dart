@@ -10,5 +10,5 @@ abstract class MovieRepository {
     required PaginationParams paginationParams,
   });
 
-  Future<DataResult<List<Genre>>> getGenres({required List<int> genreIds});
+  Future<DataResult<List<Genre>>> getGenres();
 }

@@ -1,9 +1,7 @@
-import 'package:movie_challenge_project/domain/movie/entity/genre.dart';
-
 class Movie {
   Movie({
     required this.backdropPath,
-    this.genres,
+    required this.genres,
     required this.id,
     required this.overview,
     required this.title,
@@ -12,7 +10,7 @@ class Movie {
   });
 
   final String backdropPath;
-  List<Genre>? genres;
+  List<int>? genres;
   final int id;
   final String overview;
   final String posterPath;

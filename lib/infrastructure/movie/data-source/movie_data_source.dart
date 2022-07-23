@@ -9,15 +9,13 @@ abstract class MovieDataSource {
     required String query,
     required PaginationParams paginationParams,
   });
-  Future<List<GenreDTO>> getGenres({
-    required List<int> genreIds,
-  });
+  Future<List<GenreDTO>> getGenres();
 }
 
 @Injectable(as: MovieDataSource)
 class MovieDataSourceImpl implements MovieDataSource {
   @override
-  Future<List<GenreDTO>> getGenres({required List<int> genreIds}) {
+  Future<List<GenreDTO>> getGenres() {
     throw UnimplementedError();
   }
 
