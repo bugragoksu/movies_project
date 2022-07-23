@@ -9,8 +9,9 @@ part of 'movie_dto.dart';
 MovieDTO _$MovieDTOFromJson(Map<String, dynamic> json) => MovieDTO(
       adult: json['adult'] as bool,
       backdropPath: json['backdropPath'] as String?,
-      genreIds:
-          (json['genreIds'] as List<dynamic>).map((e) => e as int).toList(),
+      genres: (json['genres'] as List<dynamic>)
+          .map((e) => GenreDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
       id: json['id'] as int,
       originalTitle: json['originalTitle'] as String,
       originalLanguage: json['originalLanguage'] as String,
@@ -27,7 +28,7 @@ MovieDTO _$MovieDTOFromJson(Map<String, dynamic> json) => MovieDTO(
 Map<String, dynamic> _$MovieDTOToJson(MovieDTO instance) => <String, dynamic>{
       'adult': instance.adult,
       'backdropPath': instance.backdropPath,
-      'genreIds': instance.genreIds,
+      'genres': instance.genres,
       'id': instance.id,
       'originalLanguage': instance.originalLanguage,
       'originalTitle': instance.originalTitle,

@@ -15,5 +15,6 @@ class GenreDTO {
 
   Genre get toGenre => Genre(id: id, name: name);
 
+  factory GenreDTO.fromJson(Map<String, dynamic> json) => _$GenreDTOFromJson(json);
   static const fromJsonFactory = _$GenreDTOFromJson;
 }
