@@ -4,6 +4,7 @@ import 'package:movie_challenge_project/injection.dart';
 import 'package:movie_challenge_project/presentation/common/mixin/pagination_list.dart';
 import 'package:movie_challenge_project/presentation/pages/movie/movie-list/bloc/movie_list_cubit.dart';
 import 'package:movie_challenge_project/presentation/pages/movie/movie-list/widgets/movie_list_view.dart';
+import 'package:movie_challenge_project/presentation/pages/movie/widgets/error_text_button.dart';
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({Key? key}) : super(key: key);
@@ -83,11 +84,11 @@ class _MovieListScreenState extends State<MovieListScreen> with PaginationList {
                     );
                   } else if (state.status == MovieListStatus.failure) {
                     return Expanded(
-                      child: TextButton(
-                        onPressed: () {
+                      child: ErrorTextButton(
+                        errorMessage: state.errorMessage,
+                        onRetry: () {
                           _movieListCubit.searchMovie(query: _searchController.text);
                         },
-                        child: Text(state.errorMessage ?? 'Something went wrong, try again'),
                       ),
                     );
                   }
