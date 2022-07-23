@@ -1,14 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class PaginationParams extends Equatable {
-  const PaginationParams(
-    this.pageNumber, {
-    this.pageSize = 16,
-  });
+  const PaginationParams(this.pageNumber);
 
   final int pageNumber;
-  final int pageSize;
 
   @override
-  List<Object?> get props => [pageNumber, pageSize];
+  List<Object?> get props => [pageNumber];
 }
