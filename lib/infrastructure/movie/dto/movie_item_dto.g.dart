@@ -8,7 +8,7 @@ part of 'movie_item_dto.dart';
 
 MovieItemDTO _$MovieItemDTOFromJson(Map<String, dynamic> json) => MovieItemDTO(
       title: json['title'] as String,
-      posterPath: json['poster_path'] as String,
+      posterPath: json['poster_path'] as String?,
       average: (json['vote_average'] as num).toDouble(),
     );
 

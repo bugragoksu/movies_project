@@ -12,13 +12,13 @@ class MovieItemDTO {
   });
   final String title;
   @JsonKey(name: 'poster_path')
-  final String posterPath;
+  final String? posterPath;
   @JsonKey(name: 'vote_average')
   final double average;
 
   static MovieItem toMovieItem(MovieItemDTO dto) => MovieItem(
         title: dto.title,
-        image: dto.posterPath,
+        image: dto.posterPath ?? '',
         average: dto.average,
       );
 

@@ -1,6 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_challenge_project/domain/movie/entity/movie_item.dart';
+import 'package:movie_challenge_project/injection.dart';
+import 'package:movie_challenge_project/presentation/common/mixin/pagination_list.dart';
 import 'package:movie_challenge_project/presentation/pages/movie/movie-detail/movie_detail_screen.dart';
+import 'package:movie_challenge_project/presentation/pages/movie/movie-list/bloc/movie_list_cubit.dart';
+import 'package:movie_challenge_project/presentation/pages/movie/movie-list/widgets/movie_list_view.dart';
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({Key? key}) : super(key: key);
@@ -9,7 +15,31 @@ class MovieListScreen extends StatefulWidget {
   State<MovieListScreen> createState() => _MovieListScreenState();
 }
 
-class _MovieListScreenState extends State<MovieListScreen> {
+class _MovieListScreenState extends State<MovieListScreen> with PaginationList {
+  late final MovieListCubit _movieListCubit;
+  late final TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+    _movieListCubit = getIt.get<MovieListCubit>();
+    onLoadMore = _onScroll;
+    addScrollListener();
+    _searchController.addListener(() {
+      final query = _searchController.text;
+      if (query.length >= 3) {
+        _movieListCubit.searchMovie(query: query);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    paginationDispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,34 +50,52 @@ class _MovieListScreenState extends State<MovieListScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _searchController,
+              decoration: const InputDecoration(
                 label: Text('Search'),
               ),
             ),
             const Spacer(),
-            Expanded(
-              flex: 12,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 3 / 4,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) => _MovieCard(
-                  imageUrl:
-                      'https://kbimages1-a.akamaihd.net/538b1473-6d45-47f4-b16e-32a0a6ba7f9a/1200/1200/False/star-wars-episode-iv-a-new-hope-3.jpg',
-                  score: '7.3',
-                  title: 'Star Wars : A New Hope',
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => const MovieDetailScreen(movieId: '1')),
+            BlocProvider.value(
+              value: _movieListCubit,
+              child: BlocBuilder<MovieListCubit, MovieListState>(
+                builder: (context, state) {
+                  if (state.status == MovieListStatus.initial) {
+                    return const Expanded(
+                      child: Text('Please enter a text'),
+                    );
+                  } else if (state.status == MovieListStatus.loading) {
+                    return Expanded(
+                      child: Column(
+                        children: const [
+                          CircularProgressIndicator(),
+                          Spacer(),
+                        ],
                       ),
                     );
-                  },
-                ),
+                  } else if (state.status == MovieListStatus.success) {
+                    if (state.movies.isEmpty) {
+                      return const Expanded(
+                        child: Text("Couln't found any movie"),
+                      );
+                    }
+                    return MovieListView(
+                      scrollController: scrollController,
+                      movies: state.movies,
+                    );
+                  } else if (state.status == MovieListStatus.failure) {
+                    return Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          _movieListCubit.searchMovie(query: _searchController.text);
+                        },
+                        child: Text(state.errorMessage ?? 'Something went wrong, try again'),
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
             ),
           ],
@@ -55,88 +103,13 @@ class _MovieListScreenState extends State<MovieListScreen> {
       ),
     );
   }
-}
 
-class _MovieCard extends StatelessWidget {
-  const _MovieCard({
-    Key? key,
-    required this.imageUrl,
-    required this.score,
-    required this.title,
-    required this.onTap,
-  }) : super(key: key);
-
-  final VoidCallback onTap;
-  final String imageUrl;
-  final String score;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            CachedNetworkImage(
-              imageUrl: imageUrl,
-              errorWidget: (context, url, error) => const Placeholder(),
-              fit: BoxFit.cover,
-            ),
-            Positioned.fill(
-              bottom: 0,
-              left: 0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        score,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  DecoratedBox(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            title,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+  Future<void> _onScroll() async {
+    final metaData = _movieListCubit.state.metaData;
+    if (metaData != null && metaData.currentPage < metaData.totalPage) {
+      setState(() => isLoadingMore = true);
+      await _movieListCubit.searchMovieMore(query: _searchController.text);
+      setState(() => isLoadingMore = false);
+    }
   }
 }
