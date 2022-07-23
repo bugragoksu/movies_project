@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:movie_challenge_project/domain/movie/entity/genre.dart';
 import 'package:movie_challenge_project/domain/movie/entity/movie.dart';
-import 'package:movie_challenge_project/infrastructure/movie/dto/genre_dto.dart';
 
 part 'movie_dto.g.dart';
 
@@ -39,18 +37,13 @@ class MovieDTO {
   final double voteAverage;
   final int voteCount;
 
-  static Movie toMovie(MovieDTO dto, List<GenreDTO> genreDtos) => Movie(
+  static Movie toMovie(MovieDTO dto) => Movie(
         backdropPath: dto.backdropPath ?? '',
         id: dto.id,
         overview: dto.overview,
         title: dto.title,
         voteAverage: dto.voteAverage,
         posterPath: dto.posterPath ?? '',
-        genres: genreDtos
-            .map(
-              (genreDto) => Genre(id: genreDto.id, name: genreDto.name),
-            )
-            .toList(),
       );
 
   static const fromJsonFactory = _$MovieDTOFromJson;

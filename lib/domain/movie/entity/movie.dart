@@ -1,9 +1,9 @@
 import 'package:movie_challenge_project/domain/movie/entity/genre.dart';
 
 class Movie {
-  const Movie({
+  Movie({
     required this.backdropPath,
-    required this.genres,
+    this.genres,
     required this.id,
     required this.overview,
     required this.title,
@@ -12,7 +12,7 @@ class Movie {
   });
 
   final String backdropPath;
-  final List<Genre> genres;
+  List<Genre>? genres;
   final int id;
   final String overview;
   final String posterPath;

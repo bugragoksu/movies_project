@@ -18,6 +18,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.factory<_i3.MovieDataSource>(() => _i3.MovieDataSourceImpl());
-  gh.factory<_i4.MovieRepository>(() => _i5.MovieRepositoryImpl());
+  gh.factory<_i4.MovieRepository>(
+      () => _i5.MovieRepositoryImpl(get<_i3.MovieDataSource>()));
   return get;
 }

@@ -4,7 +4,7 @@ import 'package:movie_challenge_project/domain/core/utils/pagination/pagination_
 import 'package:movie_challenge_project/domain/movie/entity/movie.dart';
 
 abstract class MovieRepository {
-  Future<DataResult<PaginatedResponse<List<Movie>>>> searchMovies({
+  Future<DataResult<PaginatedResponse<Movie>>> searchMovies({
     required String query,
     required PaginationParams paginationParams,
   });
