@@ -1,5 +1,5 @@
 class Genre {
-  const Genre(this.id, this.name);
+  const Genre({required this.id, required this.name});
 
   final int id;
   final String name;
