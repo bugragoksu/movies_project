@@ -6,10 +6,12 @@ part 'movie_item_dto.g.dart';
 @JsonSerializable()
 class MovieItemDTO {
   MovieItemDTO({
+    required this.id,
     required this.title,
     required this.posterPath,
     required this.average,
   });
+  final int id;
   final String title;
   @JsonKey(name: 'poster_path')
   final String? posterPath;
@@ -17,6 +19,7 @@ class MovieItemDTO {
   final double average;
 
   static MovieItem toMovieItem(MovieItemDTO dto) => MovieItem(
+        id: dto.id,
         title: dto.title,
         image: dto.posterPath ?? '',
         average: dto.average,

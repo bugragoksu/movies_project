@@ -32,7 +32,9 @@ class MovieListView extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: ((context) => const MovieDetailScreen(movieId: '1')),
+                builder: ((context) => MovieDetailScreen(
+                      movieId: movies[index].id.toString(),
+                    )),
               ),
             );
           },
