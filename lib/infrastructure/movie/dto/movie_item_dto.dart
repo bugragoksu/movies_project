@@ -8,17 +8,18 @@ class MovieItemDTO {
   MovieItemDTO({
     required this.title,
     required this.posterPath,
-    required this.avarage,
+    required this.average,
   });
   final String title;
   @JsonKey(name: 'poster_path')
   final String posterPath;
-  final String avarage;
+  @JsonKey(name: 'vote_average')
+  final double average;
 
   static MovieItem toMovieItem(MovieItemDTO dto) => MovieItem(
         title: dto.title,
         image: dto.posterPath,
-        avarage: dto.avarage,
+        average: dto.average,
       );
 
   factory MovieItemDTO.fromJson(Map<String, dynamic> json) => _$MovieItemDTOFromJson(json);
