@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:movie_challenge_project/domain/core/failures/failure.dart';
-import 'package:movie_challenge_project/domain/movie/entity/genre.dart';
 import 'package:movie_challenge_project/domain/movie/entity/movie.dart';
 import 'package:movie_challenge_project/domain/core/utils/pagination/pagination_params.dart';
 import 'package:movie_challenge_project/domain/core/utils/pagination/paginated_response.dart';
