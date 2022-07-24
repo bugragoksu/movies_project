@@ -26,7 +26,7 @@ class _MovieListScreenState extends State<MovieListScreen> with PaginationList {
     addScrollListener();
     _searchController.addListener(() {
       final query = _searchController.text;
-      if (query.length >= 3) {
+      if (query.length >= 2) {
         _movieListCubit.searchMovie(query: query);
       }
     });
