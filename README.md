@@ -1,16 +1,28 @@
-# movie_challenge_project
+# Movie Project
 
-A new Flutter project.
+A Flutter project using The Movie Database API 
 
-## Getting Started
+## Features
+ * Clean Architecture
+ * Pagination
+ * BLoC (for state management)
+ * JsonSerializable (for model serialization)
+ * get_it (for dependecy injection)
+ * injectable (for generating get_it configuration file)
+ * dio (for network requests)
+ * mocktail (for tests)
+ * unit tests
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<table>
+    <tr>
+        <td><img src="assets/screenshots/search.png" width="300"></td>
+        <td><img src="assets/screenshots/detail.png" width="300"></td>
+    </tr>
+</table>
+
+## 🤓 Author
+**Buğra Göksu** [![Twitter Follow](https://img.shields.io/twitter/follow/bugragoksu.svg?style=social)](https://twitter.com/bugragoksu)
